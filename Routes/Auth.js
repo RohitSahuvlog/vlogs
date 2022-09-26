@@ -4,6 +4,7 @@ const User = require("../modules/User");
 const bcryptjs = require("bcryptjs");
 const authRoute = Router();
 var jwt = require('jsonwebtoken');
+require('dotenv').config()
 
 authRoute.post("/signup", async (req, res, next) => {
    try {
@@ -73,7 +74,7 @@ authRoute.post("/login", async (req, res) => {
       }
       
          if (result) {
-            var token = jwt.sign({ email: user.email, age: user.age, userId: user._id }, 'secret');
+            var token = jwt.sign({ email: user.email, age: user.age, userId: user._id }, process.env.jwt_secret_key);
             console.log(token)
             return res.status(201).send({
                status: "success",

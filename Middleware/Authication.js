@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken")
-
+require('dotenv').config()
 const authentication =(req,res,next)=>{
 if(!req.headers.authorization){
     res.send("Please login again")
@@ -7,7 +7,7 @@ if(!req.headers.authorization){
 
 const user_token = req.headers.authorization.split(" ")[1]
 
-jwt.verify(user_token,"secret",function(err,decoded){
+jwt.verify(user_token,process.env.jwt_secret_key,function(err,decoded){
 if(err){
     return res.send("please login again")
 }
